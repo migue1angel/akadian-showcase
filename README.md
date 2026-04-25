@@ -8,7 +8,6 @@ It combines teaching operations, administration, and subscriptions in a single s
 - Angular
 - NestJS
 - PostgreSQL
-- Firebase
 - Stripe
 
 ## 📸 Screenshots

@@ -5,7 +5,6 @@ import {
   IsNotEmpty,
   MinLength,
   IsArray,
-  ValidateIf,
   Matches,
 } from 'class-validator';
 
@@ -22,7 +21,6 @@ export class RegisterDto {
   @IsNotEmpty()
   email: string;
 
-  @ValidateIf((o) => !o.firebaseId)
   @IsString()
   @IsNotEmpty()
   @MinLength(8)
@@ -43,10 +41,6 @@ export class RegisterDto {
   @IsString({ each: true })
   @IsNotEmpty()
   roleCodes: string[];
-
-  @IsString()
-  @IsOptional()
-  firebaseId?: string;
 
   @IsString()
   @IsOptional()

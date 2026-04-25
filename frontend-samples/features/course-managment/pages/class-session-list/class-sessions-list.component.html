@@ -1,0 +1,178 @@
+<div class="flex flex-col gap-3 max-w-full">
+  @if (courseId() && courseInfo()) {
+  <div class="card-bg rounded-lg p-4 shadow-sm">
+    <div class="flex items-start justify-between">
+      <div class="flex flex-col gap-2">
+        <h3 class="text-lg font-semibold text-sky-950 dark:text-sky-50">
+          {{ courseInfo()!.programName }}
+          @if (courseInfo()!.level) {
+            <span class="text-sm font-normal text-surface-500 dark:text-surface-400">
+              - {{ courseInfo()!.level }}
+            </span>
+          }
+        </h3>
+        <div class="flex flex-wrap gap-4 text-sm text-surface-600 dark:text-surface-300">
+          <div class="flex items-center gap-2">
+            <i class="pi pi-user text-xs"></i>
+            <span><strong>Tutor:</strong> {{ courseInfo()!.tutorName }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-clock text-xs"></i>
+            <span><strong>Time:</strong> {{ courseInfo()!.timeSlot }} {{ courseInfo()!.timezone }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-calendar text-xs"></i>
+            <span><strong>Days:</strong> {{ courseInfo()!.days }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-users text-xs"></i>
+            <span><strong>Age Group:</strong> {{ courseInfo()!.ageGroup }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
+  @if (showAddButton()) {
+  <p-toolbar>
+    <ng-template #start>
+      <p-button
+        class="mr-2"
+        severity="secondary"
+        (click)="this.visibleDialog.set(true)"
+        label="Add Class Sessions"
+        icon="pi pi-plus"
+      />
+    </ng-template>
+    <ng-template #end>
+      <p-button
+        rounded="true"
+        severity="secondary"
+        icon="pi pi-refresh"
+        (click)="classSessionsResource.reload()"
+      />
+    </ng-template>
+  </p-toolbar>
+  }
+
+  <div class="overflow-x-auto">
+  <p-table
+    [columns]="cols"
+    [stripedRows]="true"
+    [value]="classSessionsResource.value()?.data ?? []"
+    [scrollable]="true"
+    scrollDirection="both"
+    [tableStyle]="{ 'min-width': '60rem' }"
+  >
+    <ng-template #caption>
+      <div class="flex items-center justify-between">
+        <span class="text-xl font-bold">
+          @if (courseId()) {
+            Course Class Sessions
+          } @else {
+            Class Sessions List
+          }
+        </span>
+        @if (courseId()) {
+        <p-button
+          label="Back"
+          severity="secondary"
+          icon="pi pi-arrow-left"
+          (onClick)="location.back()"
+        />
+        }
+      </div>
+    </ng-template>
+    <ng-template #header>
+      <tr>
+        @for (col of cols; track $index){
+        <th>
+          {{ col.header }}
+        </th>
+        }
+        <th>Options</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-rowData let-columns="columns">
+      <tr>
+        @for (col of columns; track $index){
+        <td>
+          @if(rowData[col.field]?.id){
+          @switch (col.field){ @case ('tutor'){
+          {{ rowData[col.field].user.firstName }}
+          {{ rowData[col.field].user.lastName }}
+          } } } @else { @switch (col.field) { @case ('program.name'){
+          {{ rowData["course"].program.name }}
+          } @case ('program'){
+          {{
+            rowData["course"].program.level.code +
+              " - Unit " +
+              rowData["unitClass"].unit.unitNumber
+          }}
+          } @case ('scheduledAt'){
+          {{ rowData[col.field] | date : "medium" }}
+          } @case ('classType'){
+          {{ rowData["unitClass"].classType.name }}
+          } @case ('days'){
+          {{ rowData["course"].days }}
+          }@case ('status'){
+          <p-tag
+            [severity]="rowData[col.field] === 'scheduled' ? 'info' : 'success'"
+            [value]="rowData[col.field]"
+          />
+
+          } @default {
+          {{ rowData[col.field] }}
+          }} }
+        </td>
+        }
+        <td>
+          <div class="flex items-center gap-1">
+            <p-splitbutton
+              label="Manage"
+              size="small"
+              (onClick)="navigateToAttendanceEvaluation(rowData.id, rowData.course.id)"
+              [model]="getManageItems(rowData)"
+            />
+            <p-button
+              label="Start Session"
+              severity="secondary"
+              size="small"
+              (click)="startSession(rowData.course.meetingLink)"
+            />
+          </div>
+        </td>
+    </tr>
+  </ng-template>
+  </p-table>
+  </div>
+
+  @if (userRole() === 'tutor' && !courseId()) {
+  <app-pagination
+    [pages]="classSessionsResource.value()?.pagination?.pages ?? 0"
+    [currentPageInput]="paginationService.currentPage()"
+  />
+  }
+</div>@if (showAddButton()) {
+<p-dialog
+  header="Add class sessions"
+  [modal]="true"
+  [(visible)]="visibleDialog"
+  styleClass="w-full lg:w-2/3"
+>
+  <class-session-form 
+    [userRole]="userRole()"
+    [courseIdFilter]="courseId() || null"
+    (reloadClasses)="onClassSessionsCreated()" 
+  />
+</p-dialog>
+}@if (visibleUnitDialog()) {
+<p-dialog
+  [modal]="true"
+  [(visible)]="visibleUnitDialog"
+  styleClass="w-full lg:w-3/4 mx-4"
+>
+  <app-unit-card [unitId]="unitDetailId()" />
+</p-dialog>
+}

@@ -1,0 +1,107 @@
+<div class="flex flex-col gap-3">
+  @if (courseInfo()) {
+  <div class="card-bg rounded-lg p-4 shadow-sm">
+    <div class="flex items-start justify-between">
+      <div class="flex flex-col gap-2">
+        <h3 class="text-lg font-semibold text-sky-950 dark:text-sky-50">
+          {{ courseInfo()!.programName }}
+          @if (courseInfo()!.level) {
+            <span class="text-sm font-normal text-surface-500 dark:text-surface-400">
+              - {{ courseInfo()!.level }}
+            </span>
+          }
+        </h3>
+        <div class="flex flex-wrap gap-4 text-sm text-surface-600 dark:text-surface-300">
+          <div class="flex items-center gap-2">
+            <i class="pi pi-user text-xs"></i>
+            <span><strong>Tutor:</strong> {{ courseInfo()!.tutorName }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-clock text-xs"></i>
+            <span><strong>Time:</strong> {{ courseInfo()!.timeSlot }} {{ courseInfo()!.timezone }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-calendar text-xs"></i>
+            <span><strong>Days:</strong> {{ courseInfo()!.days }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-users text-xs"></i>
+            <span><strong>Age Group:</strong> {{ courseInfo()!.ageGroup }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
+  <div class="overflow-x-auto">
+  <p-panel class="text-sm">
+  <p-table
+    [columns]="cols"
+    [value]="enrollmentsResource.value() ?? []"
+    [scrollable]="true"
+    scrollDirection="both"
+    [tableStyle]="{ 'min-width': '60rem' }"
+  >
+    <ng-template #caption>
+      <div class="flex items-center justify-between">
+        <span class="text-xl font-bold">Enrollments List</span>
+        <p-button
+          label="Back"
+          severity="secondary"
+          icon="pi pi-arrow-left"
+          (onClick)="location.back()"
+        />
+      </div>
+    </ng-template>
+    <ng-template #header>
+      <tr>
+        @for (col of cols; track $index){
+        <th>
+          {{ col.header }}
+        </th>
+        }
+        <th>Options</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-rowData let-columns="columns">
+      <tr>
+        @for (col of columns; track $index){
+        <td>
+          {{ rowData[col.field] }}
+        </td>
+        }
+        <td>
+          <div class="flex items-center gap-2">
+            <p-menu
+              #menu
+              [model]="actionButtons()"
+              [popup]="true"
+              appendTo="body"
+            ></p-menu>
+            <p-button
+              (click)="selectedItem.set(rowData); menu.toggle($event)"
+              size="small"
+              severity="secondary"
+              icon="pi pi-ellipsis-v"
+            />
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  </p-panel>
+  </div>
+</div>
+
+<!-- Evaluation Dialog -->
+<app-enrollment-evaluation-dialog
+  [visible]="showEvaluationDialog()"
+  [enrollment]="selectedItem()"
+  [courseId]="courseId()"
+  (visibleChange)="showEvaluationDialog.set($event)"
+  (evaluationRecorded)="onEvaluationRecorded()"
+/>
+
+<!-- Confirmation Dialog -->
+<p-confirmDialog />

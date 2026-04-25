@@ -1,0 +1,7 @@
+<p-paginator
+  [totalRecords]="pages()"
+  [rows]="1"
+  (onPageChange)="onPageChange($event)"
+  [first]="currentPage() - 1"
+/>
+<!-- Subtract because PrimeNG pagination starts at 0 -->

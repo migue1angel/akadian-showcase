@@ -1,0 +1,29 @@
+<div class="flex flex-col gap-4">
+  <div class="flex items-center justify-between">
+    <h2 class="text-2xl font-bold">Attendance & Evaluation</h2>
+    <p-button
+      label="Back"
+      severity="secondary"
+      icon="pi pi-arrow-left"
+      (onClick)="location.back()"
+    />
+  </div>
+  <p-tabs value="0">
+    <p-tablist>
+      <p-tab value="0">Take Attendance</p-tab>
+      <p-tab value="1">Assign Grades</p-tab>
+    </p-tablist>
+  <p-tabpanels>
+    <p-tabpanel value="0">
+      <app-bulk-attendance [classSessionId]="classSessionId()" />
+    </p-tabpanel>
+    <p-tabpanel value="1">
+      <app-bulk-evaluation
+        [classSessionId]="classSessionId()"
+        [courseId]="courseId()"
+      />
+    </p-tabpanel>
+  </p-tabpanels>
+  </p-tabs>
+</div>
+

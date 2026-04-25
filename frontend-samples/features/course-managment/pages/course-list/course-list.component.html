@@ -1,0 +1,65 @@
+<p-table
+  [columns]="cols"
+  [stripedRows]="true"
+  [value]="coursesResource.value() ?? []"
+  size="small"
+>
+  <ng-template #caption>
+    <div class="flex items-center justify-between">
+      <span class="text-xl font-bold">
+        @if (userRole() === 'tutor') { My Courses } @else { All Courses }
+      </span>
+    </div>
+  </ng-template>
+  <ng-template #header>
+    <tr>
+      @for (col of cols; track $index){
+      <th class="whitespace-nowrap">
+        {{ col.header }}
+      </th>
+      }
+      <th class="whitespace-nowrap">Options</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-rowData let-columns="columns">
+    <tr>
+      @for (col of columns; track $index){
+      <td class="whitespace-nowrap">
+        @if(rowData[col.field]?.id){
+        <!--  -->
+        @switch (col.field){ } }
+        <!--  -->
+        @else { @switch (col.field) { @case ('name'){
+        {{ rowData["program"]?.name }}
+        } @case ('timeSlot'){
+        {{ rowData[col.field] }}
+        } @case ('timezone'){
+        {{ rowData[col.field] }}
+        } @case ('isActive'){
+        {{ rowData[col.field] }}
+        } @case ('days'){
+        {{ rowData[col.field] }}
+        } @default {
+        {{ rowData[col.field] }}
+        }} }
+      </td>
+      }
+      <td class="whitespace-nowrap">
+        <div class="flex items-center gap-2">
+          <p-menu
+            #menu
+            [model]="actionButtons"
+            [popup]="true"
+            appendTo="body"
+          ></p-menu>
+          <p-button
+            (click)="selectedItem.set(rowData); menu.toggle($event)"
+            size="small"
+            severity="secondary"
+            icon="pi pi-ellipsis-v"
+          />
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

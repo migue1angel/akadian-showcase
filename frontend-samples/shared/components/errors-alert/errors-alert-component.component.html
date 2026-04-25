@@ -1,0 +1,16 @@
+<p-toast position="top-center" closable="true" life="3000">
+  <ng-template let-message #message>
+    <div class="flex flex-col items-start p-5 flex-auto">
+      <span class="text-lg font-bold">{{ message.summary }}</span>
+      @if (Array.isArray(message.detail)) {
+      <ul class="list-disc">
+        @for (item of message.detail ; track $index) {
+        <li class="ml-2 text-gray-700 dark:text-white">{{ item }}</li>
+        }
+      </ul>
+      } @else {
+      <span class="text-gray-700 dark:text-white">{{ message.detail }}</span>
+      }
+    </div>
+  </ng-template>
+</p-toast>

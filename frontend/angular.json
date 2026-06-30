@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "akadian-academy-front": {
+    "frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -64,10 +64,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "akadian-academy-front:build:production"
+              "buildTarget": "frontend:build:production"
             },
             "development": {
-              "buildTarget": "akadian-academy-front:build:development"
+              "buildTarget": "frontend:build:development"
             }
           },
           "defaultConfiguration": "development"

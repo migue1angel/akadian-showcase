@@ -1,0 +1,51 @@
+<nav>
+  <p-menubar [model]="items">
+    <ng-template #start>
+      <div class="flex items-center ml-1 md:ml-10">
+        <span class="text-3xl font-[ED-Nimpkish] mt-1" translate="no"
+          >Akadian</span
+        >
+        <span class="text-xl font-[ED-Nimpkish] font-semibold mt-1 ml-1"
+          >®</span
+        >
+      </div>
+    </ng-template>
+
+    <ng-template #item let-item let-root="root">
+      @if (authService.user()) {
+      <a
+        routerLink="{{ item.path }}"
+        class="flex items-center p-menubar-item-link"
+        [routerLinkActive]="'font-semibold'"
+        [routerLinkActiveOptions]="{ exact: false }"
+      >
+        <span [routerLinkActive]="'text-primary'">{{ item.label }}</span>
+      </a>
+      }
+    </ng-template>
+
+    <ng-template #end>
+      <div class="flex items-center gap-2">
+        <p-button
+          size="small"
+          severity="secondary"
+          rounded="true"
+          (click)="toggleDarkMode()"
+          [icon]="themeIcon === 'sun' ? 'pi pi-sun' : 'pi pi-moon'"
+        />
+        @if (authService.user()) {
+        <p-menu #menu [model]="menuItems" [popup]="true" />
+        <p-button (click)="menu.toggle($event)" size="small" severity="secondary" icon="pi pi-ellipsis-v" />
+        } @else {
+        <p-button
+          severity="secondary"
+          size="small"
+          label="Login"
+          routerLink="/auth/login"
+          icon="pi pi-user"
+        />
+        }
+      </div>
+    </ng-template>
+  </p-menubar>
+</nav>

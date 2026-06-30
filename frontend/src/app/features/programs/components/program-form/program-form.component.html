@@ -1,0 +1,304 @@
+<p-fluid
+  class="min-h-full flex w-full justify-center bg-surface-0 dark:bg-surface-900 rounded-xl p-5"
+>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="w-full flex flex-col gap-6"
+  >
+    <!-- ==================== BASIC INFORMATION ==================== -->
+    <section class="flex flex-col gap-4">
+      <div class="field">
+        <label
+          appCustomLabel
+          for="name"
+          [label]="ProgramFormEnum.name"
+          [abstractControl]="nameField"
+        ></label>
+        <input type="text" pInputText formControlName="name" id="name" />
+        <span
+          appErrorMessage
+          [errors]="nameField.errors"
+          [touched]="nameField.touched"
+        ></span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-5">
+        <div class="field">
+          <label
+            appCustomLabel
+            for="language"
+            [abstractControl]="languageField"
+            [label]="ProgramFormEnum.language"
+          ></label>
+          <p-select
+            [options]="languages"
+            formControlName="languageId"
+            optionValue="id"
+            optionLabel="name"
+            placeholder="Select a language"
+            inputId="language"
+            class="w-full"
+          />
+          <span
+            appErrorMessage
+            [errors]="languageField.errors"
+            [touched]="languageField.touched"
+          ></span>
+        </div>
+
+        <div class="field">
+          <label
+            appCustomLabel
+            for="level"
+            [abstractControl]="levelField"
+            [label]="ProgramFormEnum.level"
+          ></label>
+          <p-select
+            [options]="levels"
+            formControlName="levelId"
+            optionValue="id"
+            optionLabel="name"
+            placeholder="Select a level"
+            inputId="level"
+            class="w-full"
+          />
+          <span
+            appErrorMessage
+            [errors]="levelField.errors"
+            [touched]="levelField.touched"
+          ></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PROGRAM METRICS ==================== -->
+    <section class="grid grid-cols-2 gap-5">
+      <div class="field">
+        <label
+          appCustomLabel
+          for="totalUnits"
+          [label]="ProgramFormEnum.totalUnits"
+          [abstractControl]="totalUnitsField"
+        ></label>
+        <p-inputnumber
+          [showButtons]="true"
+          [useGrouping]="false"
+          formControlName="totalUnits"
+          inputId="totalUnits"
+          [inputStyle]="{ width: '3rem' }"
+        />
+        <span
+          appErrorMessage
+          [errors]="totalUnitsField.errors"
+          [touched]="totalUnitsField.touched"
+        ></span>
+      </div>
+
+      <div class="field">
+        <label
+          appCustomLabel
+          for="totalClasses"
+          [label]="ProgramFormEnum.totalClasses"
+          [abstractControl]="totalClassesField"
+        ></label>
+        <p-inputnumber
+          [useGrouping]="false"
+          formControlName="totalClasses"
+          inputId="totalClasses"
+        />
+        <span
+          appErrorMessage
+          [errors]="totalClassesField.errors"
+          [touched]="totalClassesField.touched"
+        ></span>
+      </div>
+
+      <div class="field">
+        <label
+          appCustomLabel
+          for="minAttendancePercentage"
+          [label]="ProgramFormEnum.minAttendancePercentage"
+          [abstractControl]="minAttendancePercentageField"
+        ></label>
+        <p-inputnumber
+          [useGrouping]="false"
+          formControlName="minAttendancePercentage"
+          inputId="minAttendancePercentage"
+        />
+        <span
+          appErrorMessage
+          [errors]="minAttendancePercentageField.errors"
+          [touched]="minAttendancePercentageField.touched"
+        ></span>
+      </div>
+
+      <div class="field">
+        <label
+          appCustomLabel
+          for="minPassPercentage"
+          [label]="ProgramFormEnum.minPassPercentage"
+          [abstractControl]="minPassPercentageField"
+        ></label>
+        <p-inputnumber
+          [useGrouping]="false"
+          formControlName="minPassPercentage"
+          inputId="minPassPercentage"
+        />
+        <span
+          appErrorMessage
+          [errors]="minPassPercentageField.errors"
+          [touched]="minPassPercentageField.touched"
+        ></span>
+      </div>
+    </section>
+
+    <hr class="border-surface-100 border-1 dark:border-surface-700" />
+
+    <!-- ==================== UNITS SECTION ==================== -->
+    @if (unitsField.length > 0) {
+    <section class="flex flex-col gap-4">
+      <div
+        class="flex justify-between items-center p-4 bg-surface-100 dark:bg-surface-800 rounded-lg"
+      >
+        <p-button
+          (click)="goToPreviousUnit()"
+          [disabled]="currentUnitIndex() === 0"
+          severity="secondary"
+          [text]="true"
+          icon="pi pi-arrow-left"
+        />
+
+        <h3 class="text-xl font-semibold">
+          Unit {{ currentUnitIndex() + 1 }} of {{ unitsField.length }}
+        </h3>
+
+        <p-button
+          (click)="goToNextUnit()"
+          [disabled]="currentUnitIndex() === unitsField.length - 1"
+          severity="secondary"
+          [text]="true"
+          icon="pi pi-arrow-right"
+        />
+      </div>
+
+      @if (getCurrentUnitFormGroup(); as currentUnit) {
+      <div [formGroup]="currentUnit" class="flex flex-col gap-4">
+        <div class="grid grid-cols-2 gap-5">
+          <div class="field">
+            <label
+              appCustomLabel
+              for="unitNumber"
+              [label]="UnitFormEnum.unitNumber"
+              [abstractControl]="currentUnit.get('unitNumber')"
+            ></label>
+            <p-inputnumber
+              [useGrouping]="false"
+              formControlName="unitNumber"
+              inputId="unitNumber"
+            />
+            <span
+              appErrorMessage
+              [errors]="currentUnit.get('unitNumber')?.errors"
+              [touched]="currentUnit.get('unitNumber')?.touched"
+            ></span>
+          </div>
+
+          <div class="field">
+            <label
+              appCustomLabel
+              for="title"
+              [label]="UnitFormEnum.title"
+              [abstractControl]="currentUnit.get('title')"
+            ></label>
+            <input type="text" pInputText formControlName="title" id="title" />
+            <span
+              appErrorMessage
+              [errors]="currentUnit.get('title')?.errors"
+              [touched]="currentUnit.get('title')?.touched"
+            ></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label
+            appCustomLabel
+            for="overview"
+            [label]="UnitFormEnum.overview"
+            [abstractControl]="currentUnit.get('overview')"
+          ></label>
+          <textarea
+            rows="5"
+            cols="30"
+            pTextarea
+            formControlName="overview"
+          ></textarea>
+          <span
+            appErrorMessage
+            [errors]="currentUnit.get('overview')?.errors"
+            [touched]="currentUnit.get('overview')?.touched"
+          ></span>
+        </div>
+
+        <hr class="border-surface-100 border-1 dark:border-surface-700 my-2" />
+
+        <div>
+          <h4 class="text-lg font-bold mb-4">{{ UnitFormEnum.unitClasses }}</h4>
+
+          <div formArrayName="unitClasses" class="flex flex-col gap-4">
+            @if (getCurrentUnitClassesField(); as unitClasses) {
+              @for (unitClass of unitClasses.controls; track $index) {
+              <div
+                [formGroupName]="$index"
+                class="p-4 border border-surface-200 dark:border-surface-700 rounded-lg bg-surface-0 dark:bg-surface-900"
+              >
+                <h5 class="text-base font-semibold mb-3 text-primary">
+                  {{ classTypes[$index].name }}
+                </h5>
+
+                <input type="hidden" formControlName="classTypeId" />
+
+                <div class="field">
+                  <label
+                    appCustomLabel
+                    [for]="'classTitle-' + $index"
+                    [label]="UnitClassFormEnum.title"
+                  ></label>
+                  <input
+                    type="text"
+                    pInputText
+                    formControlName="title"
+                    [id]="'classTitle-' + $index"
+                  />
+                </div>
+
+                <div class="field">
+                  <label
+                    appCustomLabel
+                    [for]="'classDescription-' + $index"
+                    [label]="UnitClassFormEnum.description"
+                  ></label>
+                  <textarea
+                    rows="4"
+                    cols="30"
+                    pTextarea
+                    formControlName="description"
+                    [id]="'classDescription-' + $index"
+                  ></textarea>
+                </div>
+              </div>
+              }
+            }
+          </div>
+        </div>
+      </div>
+      }
+    </section>
+    }
+
+    <!-- ==================== SUBMIT BUTTON ==================== -->
+    <div class="flex justify-end pt-4">
+      <p-button label="Save Program" type="submit" size="large" />
+    </div>
+  </form>
+</p-fluid>

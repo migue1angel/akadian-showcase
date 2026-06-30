@@ -1,0 +1,70 @@
+# === OS files ===
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# === Logs ===
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+testem.log
+libpeerconnection.log
+
+# === Dependencies ===
+node_modules/
+
+# === Build output ===
+
+# Backend (NestJS / TypeScript)
+/backend/dist/
+/backend/build/
+/backend/coverage/
+/backend/.nyc_output
+
+# Frontend (Angular)
+/frontend/dist/
+/frontend/out-tsc/
+/frontend/bazel-out/
+/frontend/tmp/
+/frontend/.angular/cache/
+/frontend/coverage/
+/frontend/.sass-cache/
+/frontend/connect.lock
+/frontend/typings/
+
+# === Environment files ===
+.env
+.env*.local
+
+# Frontend generated environment (from .env via scripts/set-envs.js)
+/frontend/src/environments/
+
+# === IDE / Editor ===
+.idea/
+.vscode/
+.project
+.classpath
+.settings/
+.c9/
+*.launch
+*.sublime-workspace
+.history/
+
+# === Backend runtime artifacts ===
+/backend/pids/
+*.pid
+*.seed
+*.pid.lock
+/backend/logs/
+/backend/.temp/
+/backend/.tmp/
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# === Database dumps ===
+akadian-back.sql

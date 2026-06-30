@@ -1,0 +1,34 @@
+<div class="h-[calc(100vh-3.5rem)] grid grid-cols-5 gap-5 p-3 overflow-hidden">
+  <div
+    class="col-span-3 h-full overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-gray-400"
+  >
+    <program-form
+      [initialData]="initialProgramResource.value()"
+      (formOutput)="onFormChange($event)"
+      (currentUnitIndexOutput)="onCurrentUnitChange($event)"
+    />
+  </div>
+
+  <div class="col-span-2 flex flex-col gap-3 h-full overflow-y-auto">
+    @for (
+      unitClass of newProgram()?.units?.[currentUnit()]?.unitClasses;
+      track $index
+    ) {
+      <unit-class-card
+        [program]="newProgram()"
+        [unit]="newProgram()?.units?.[currentUnit()]"
+        [unitClassInput]="unitClass"
+      />
+    } @empty {
+      <div
+        class="flex flex-col items-center justify-center text-center text-gray-500 p-4 border border-dashed border-gray-300 rounded-lg h-full min-h-[300px]"
+      >
+        <i class="pi pi-book" style="font-size: 2rem"></i>
+        <p class="font-semibold">Syllabus preview will appear here</p>
+        <p class="text-sm">
+          Add units to the program to start building your academic structure.
+        </p>
+      </div>
+    }
+  </div>
+</div>

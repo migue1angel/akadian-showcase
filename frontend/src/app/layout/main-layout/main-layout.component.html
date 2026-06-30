@@ -1,0 +1,13 @@
+<div class="min-h-screen flex flex-col">
+  <app-navbar class="h-14 sticky top-0 z-50" />
+  @if (layoutService.showLoading()) {
+    <app-spinner></app-spinner>
+  }
+
+  <section class="grow-1 overflow-auto">
+    <router-outlet />
+  </section>
+  <app-errors-alert-component />
+
+  <!-- <app-footer></app-footer> -->
+</div>

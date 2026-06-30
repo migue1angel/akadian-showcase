@@ -1,0 +1,8 @@
+<main class="h-screen overflow-auto bg-gray-100 dark:bg-surface-800">
+  <router-outlet />
+  @if (layoutService.showLoading()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center">
+    <app-spinner />
+  </div>
+  }
+</main>

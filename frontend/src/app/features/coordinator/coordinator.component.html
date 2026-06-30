@@ -1,0 +1,9 @@
+<main class="min-h-full flex flex-col lg:flex-row gap-5 m-4">
+  <app-sidebar
+    class="fixed h-[calc(100vh-5rem)] card-bg rounded-xl shadow-lg w-58"
+    [items]="items"
+  />
+  <div class="grow-1 ml-62 overflow-auto">
+    <router-outlet />
+  </div>
+</main>

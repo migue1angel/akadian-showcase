@@ -1,0 +1,42 @@
+<aside class="flex flex-col items-center h-full pt-12 overflow-y-auto">
+  <div class="w-2/3 flex flex-col items-start">
+    @for (item of items(); track $index) {
+    <div class="flex flex-col w-full gap-3 items-center">
+      <div
+        routerLinkActive="text-primary"
+        [routerLink]="item.path"
+        class="flex gap-2"
+      >
+        <i [class]="'pi pi-' + item.icon"></i>
+        <span class="font-bold text-center text-sm">{{ item.label }}</span>
+      </div>
+
+      @if (item.subItems && item.subItems.length > 0) {
+      <div class="flex flex-col w-full gap-2 items-center text-sm">
+        @for (subItem of item.subItems; track $index) { @if (item.path) {
+
+        <span
+          class="cursor-pointer px-2 py-1 rounded-xl hover:bg-surface-200 dark:hover:bg-surface-800"
+          routerLinkActive="bg-primary text-white hover:text-surface-900 dark:hover:text-surface-100"
+          [routerLink]="[item.path, subItem.path]"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ subItem.label }}</span
+        >
+        } @else {
+        <span
+          class="cursor-pointer px-2 py-1 rounded-xl hover:bg-surface-200 dark:hover:bg-surface-800"
+          routerLinkActive="bg-primary text-white hover:text-surface-900 dark:hover:text-surface-100"
+          [routerLink]="[subItem.path]"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ subItem.label }}</span
+        >
+        } }
+      </div>
+      }
+    </div>
+    <hr
+      class="my-3 border-surface-200 dark:border-surface-800 border-1 w-full"
+    />
+    }
+  </div>
+</aside>

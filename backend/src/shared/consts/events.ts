@@ -1,0 +1,1 @@
+export const SYSTEM_ERROR_EVENT = "system.error";

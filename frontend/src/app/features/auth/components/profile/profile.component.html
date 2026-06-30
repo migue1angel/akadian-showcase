@@ -1,0 +1,61 @@
+<p-fluid class="mb-3">
+  <form [formGroup]="form">
+    <div class="grid grid-cols-1 gap-6">
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
+        <label
+          appCustomLabel
+          [label]="profileFormEnum.email"
+          for="email"
+          class="md:col-span-2"
+        ></label>
+        <div class="md:col-span-10">
+          <input pInputText formControlName="email" id="email" />
+          <span
+            appErrorMessage
+            [errors]="emailField.errors"
+            [touched]="emailField.touched"
+            [dirty]="emailField.dirty"
+          ></span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
+        <label
+          appCustomLabel
+          [label]="profileFormEnum.firstName"
+          for="firstName"
+          class="md:col-span-2"
+        ></label>
+        <div class="md:col-span-10">
+          <input pInputText formControlName="firstName" id="firstName" />
+          <span
+            appErrorMessage
+            [errors]="firstNameField.errors"
+            [touched]="firstNameField.touched"
+            [dirty]="firstNameField.dirty"
+          ></span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
+        <label
+          appCustomLabel
+          [label]="profileFormEnum.lastName"
+          for="lastName"
+          class="md:col-span-2"
+        ></label>
+        <div class="md:col-span-10">
+          <input pInputText formControlName="lastName" id="lastName" />
+          <span
+            appErrorMessage
+            [errors]="lastNameField.errors"
+            [touched]="lastNameField.touched"
+            [dirty]="lastNameField.dirty"
+          ></span>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</p-fluid>

@@ -1,0 +1,72 @@
+<div class="flex justify-center items-center h-full w-full">
+  <div
+    class="flex flex-col md:flex-row w-full h-full mt-10 md:mt-0 md:w-10/12 xl:w-8/12 md:h-10/12 md:p-5 px-2 py-5 card-bg rounded-lg overflow-auto"
+  >
+    <div
+      class="flex items-center justify-center md:w-2/5 w-full min-h-72 bg-gradient-to-br from-[#F2F2F2] to-[#cdcdd6] dark:from-[#bbbbbb] dark:to-[#666669] rounded-xl p-4"
+    >
+      <img
+        src="assets/icons/login.svg"
+        alt="Login Welcome"
+        class="w-3/4 md:w-full h-auto object-contain"
+      />
+    </div>
+
+    <div
+      class="flex flex-col md:w-3/5 w-full p-5 md:px-10 lg:px-20 justify-center"
+    >
+      <h2 class="text-3xl text-primary font-semibold mb-6">Welcome Back!</h2>
+
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
+        class="flex flex-col gap-2 w-full"
+      >
+        <div class="field">
+          <label
+            appCustomLabel
+            [label]="AuthFormEnum.email"
+            for="email"
+          ></label>
+          <input pInputText formControlName="email" id="email" class="h-8" />
+          <span
+            appErrorMessage
+            [errors]="emailField.errors"
+            [touched]="emailField.touched"
+          ></span>
+        </div>
+
+        <div class="field">
+          <label
+            appCustomLabel
+            [label]="AuthFormEnum.password"
+            for="password"
+          ></label>
+          <p-password
+            formControlName="password"
+            id="password"
+            [feedback]="false"
+            [toggleMask]="true"
+            class="w-full"
+            inputStyleClass="w-full h-8"
+          />
+          <span
+            appErrorMessage
+            [errors]="passwordField.errors"
+            [touched]="passwordField.touched"
+          ></span>
+        </div>
+
+        <p-button
+          [fluid]="true"
+          [rounded]="true"
+          severity="primary"
+          type="submit"
+          [label]="loading() ? 'Logging in...' : 'Login'"
+          [loading]="loading()"
+        />
+      </form>
+
+    </div>
+  </div>
+</div>

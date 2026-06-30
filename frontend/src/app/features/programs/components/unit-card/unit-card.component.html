@@ -1,0 +1,29 @@
+@if (displayUnit(); as unit) {
+<div
+  class="flex flex-col p-3 shadow-lg border border-surface-100 dark:border-surface-600 rounded-md"
+>
+  <span class="title-color font-bold text-xl">Unit {{ unit.unitNumber }}</span>
+  <span class="font-bold text-md text-surface-500">{{ unit.title }}</span>
+  <p class="mt-2 lg:mt-3 text-md text-surface-500">{{ unit.overview }}</p>
+
+  <div class="mt-5">
+    <p-accordion>
+      @for (unitClass of unit.unitClasses; track $index; let i = $index) {
+      <p-accordion-panel [value]="i">
+        <p-accordion-header>{{ unitClass.classType.name }}</p-accordion-header>
+        <p-accordion-content>
+          <div class="flex flex-col gap-3">
+            <span class="title-color text-lg">{{ unitClass.title }}</span>
+            <span class="text-md text-surface-500"
+              >{{ unitClass.description }} description</span
+            >
+          </div>
+        </p-accordion-content>
+      </p-accordion-panel>
+      }
+    </p-accordion>
+  </div>
+</div>
+} @else {
+<p>No unit found</p>
+}

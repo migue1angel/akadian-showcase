@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@plugin "tailwindcss-primeui";
+@custom-variant dark (&:where(.my-app-dark, .my-app-dark *));
+@import "primeicons/primeicons.css";
+.field {
+  @apply flex flex-col gap-2;
+}
+
+.card-bg {
+  @apply bg-surface-0 dark:bg-surface-900;
+}
+
+.title-color {
+  @apply text-sky-950 dark:text-sky-50;
+}
+
+@font-face {
+  font-family: "ED-Nimpkish";
+  src: url("./assets/fonts/ED-Nimpkish-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/Poppins-Regular.ttf") format("truetype");
+}
+
+body {
+  font-family: "Poppins", "ED-Nimpkish", "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}

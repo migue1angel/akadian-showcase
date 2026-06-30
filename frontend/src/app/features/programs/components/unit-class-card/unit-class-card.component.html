@@ -1,0 +1,25 @@
+<div class="p-7 bg-surface-0 dark:bg-surface-900 shadow-lg">
+  <h2 class="text-xl text-sky-950 dark:text-sky-50 font-semibold">Syllabus</h2>
+  <h3 class="text-surface-500 font-semibold">
+    {{ program()?.name ?? program()?.level?.name }}
+  </h3>
+
+  <div class="my-3">
+    <span class="text-primary font-semibold">{{
+      unitClass()?.classType?.name
+    }}</span>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <span class="text-sky-950 dark:text-sky-50 font-semibold"
+      >Unit {{ unit()?.unitNumber ?? "..." }} -
+      {{ unit()?.title ?? "..." }}</span
+    >
+    <span class="text-surface-500 font-semibold">{{
+      unitClass()?.title ?? "..."
+    }}</span>
+    <p class="text-surface-500 text-sm line-clamp-5">
+      {{ unitClass()?.description ?? unit()?.overview ?? "..." }}
+    </p>
+  </div>
+</div>

@@ -20,7 +20,7 @@ Email:
 admin@showcase.dev
 
 Password:
-Password123!
+Passw123!
 ```
 
 ## Purpose

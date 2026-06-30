@@ -10,7 +10,7 @@ The objective of this showcase is to expose the architecture, engineering practi
 
 ## Live Demo
 
-🌐 https://placeholder.com
+🌐 https://akadian-showcase.netlify.app
 
 ## Demo Accounts
 

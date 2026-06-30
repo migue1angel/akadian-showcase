@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { envs } from './config/envs';
 import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
-
+import { SeedService } from './seed/services/seed.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { rawBody: true });
@@ -32,5 +32,13 @@ async function bootstrap() {
   }
 
   await app.listen(envs.port ?? 3000);
+
+  // Auto-seed on startup (idempotent — skips existing data)
+  try {
+    const seedService = app.get(SeedService);
+    await seedService.run();
+  } catch (error) {
+    console.error('Auto-seed error:', error.message);
+  }
 }
 bootstrap();

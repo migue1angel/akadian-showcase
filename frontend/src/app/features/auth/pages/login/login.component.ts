@@ -70,10 +70,12 @@ export default class LoginComponent {
       },
       error: (error) => {
         this.loading.set(false);
-        this.notificationService.showError(
-          'Login Failed',
-          error.error?.message || 'Invalid email or password',
-        );
+        if (error.status !== 429) {
+          this.notificationService.showError(
+            'Login Failed',
+            error.error?.message || 'Invalid email or password',
+          );
+        }
       },
     });
   }

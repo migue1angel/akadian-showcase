@@ -97,8 +97,8 @@ export const httpMessageInterceptor: HttpInterceptorFn = (req, next) => {
           shouldShowMessage,
         });
 
-        // Solo mostrar mensaje si NO es una operación de auth
-        if (shouldShowMessage) {
+        // Mostrar mensaje si NO es auth O si es un 429 (rate limiting)
+        if (shouldShowMessage || error.status === 429) {
           customMessageService.showError(errorTitle, errorMessage);
         }
       } else {
@@ -221,7 +221,7 @@ function handleHttpError(
         return {
           title: 'Too many requests',
           message:
-            'You have exceeded the request limit. Wait a moment and try again.',
+            error.error?.message || 'You have exceeded the request limit. Wait a moment and try again.',
         };
 
       default:

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "env": "node --env-file=.env ./scripts/set-envs.js",
+    "env": "node ./scripts/set-envs.js",
     "start": "ng serve",
     "build": "npm run env && ng build --configuration production",
     "watch": "ng build --watch --configuration development",

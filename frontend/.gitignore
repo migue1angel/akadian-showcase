@@ -11,6 +11,8 @@
 npm-debug.log
 yarn-error.log
 
+netlify.toml
+
 /src/environments/
 .env
 .env.local

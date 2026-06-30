@@ -44,7 +44,7 @@ import { Button } from 'primeng/button';
               This version represents only a <strong class="text-sky-700 dark:text-sky-300">showcase version</strong> of the original project.
               You can find the full documentation at the GitHub repository:
             </p>
-            <a href="https://github.com/user/repo" target="_blank" rel="noopener noreferrer"
+            <a href="https://github.com/migue1angel/akadian-showcase" target="_blank" rel="noopener noreferrer"
                class="inline-flex items-center gap-2 mt-2 text-sky-600 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-200 font-medium transition-colors">
               <i class="pi pi-github text-lg"></i>
               View on GitHub

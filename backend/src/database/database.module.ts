@@ -11,6 +11,11 @@ import { envs } from 'src/config/envs';
       username: envs.database.user,
       password: envs.database.password,
       database: envs.database.name,
+      ssl:
+        envs.nodeEnv === 'production'
+          ? { rejectUnauthorized: false }
+          : false,
+      
       autoLoadEntities: true,
       synchronize: false,
       migrations: [__dirname + '/migrations/*{.ts,.js}'],

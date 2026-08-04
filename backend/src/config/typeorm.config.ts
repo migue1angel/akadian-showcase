@@ -9,6 +9,11 @@ export default new DataSource({
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
 
+  ssl:
+    process.env.NODE_ENV === 'production'
+      ? { rejectUnauthorized: false }
+      : false,
+
   entities: ['src/**/*.entity.ts'],
   migrations: ['src/database/migrations/*.ts'],
 
